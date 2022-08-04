@@ -57,12 +57,16 @@ fn count_neighborhoods(arr: &[bool; SQUARE])
                         east,
                     );
                     if eni > -1 { 
-                        let mut temp = (nc[cursor_n_idx]).clone();
-                        for el in &(nc[eni as usize]) {
-                            temp.insert(*el);
+                        if eni != (cursor_n_idx as i32) {
+                            // Not already in the right neighborhood
+                            let mut temp = (nc[cursor_n_idx]).clone();
+                            for el in &(nc[eni as usize]) {
+                                temp.insert(*el);
+                            }
+                            nc[cursor_n_idx] = temp;
+                            nc.remove(eni as usize);
                         }
-                        nc[cursor_n_idx] = temp;
-                        nc.remove(eni as usize);
+
                     } else {
                         nc[cursor_n_idx].insert(east);
                     }
@@ -76,12 +80,14 @@ fn count_neighborhoods(arr: &[bool; SQUARE])
                         south,
                     );
                     if eni > -1 {
-                        let mut temp = (nc[cursor_n_idx]).clone();
-                        for el in &(nc[eni as usize]) {
-                            temp.insert(*el);
+                        if eni != (cursor_n_idx as i32) {
+                            let mut temp = (nc[cursor_n_idx]).clone();
+                            for el in &(nc[eni as usize]) {
+                                temp.insert(*el);
+                            }
+                            nc[cursor_n_idx] = temp;
+                            nc.remove(eni as usize);
                         }
-                        nc[cursor_n_idx] = temp;
-                        nc.remove(eni as usize);
                     } else {
                         nc[cursor_n_idx].insert(south);
                     }
